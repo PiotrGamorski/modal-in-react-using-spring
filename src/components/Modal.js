@@ -1,5 +1,5 @@
-import React, {useRef, useEffect, useCallback} from "react";
-import {useSpring, animated} from "react-spring";
+import React, { useRef, useEffect, useCallback } from "react";
+import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 
@@ -63,22 +63,36 @@ const CloseModalButton = styled(MdClose)`
   z-index: 10;
 `;
 const Modal = ({ showModal, setShowModal }) => {
+  const modalRef = useRef();
+
+  const animation = useSpring({
+    config: {
+      duration: 250,
+    },
+    opacity: showModal ? 1 : 0,
+    transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
+  });
   return (
     <>
       {showModal ? (
         <Background>
-          <ModalWrapper showModal={showModal}>
-            <ModalImg src={process.env.PUBLIC_URL + "./Assets/modal.jpg"} alt="camera" />
-            <ModalContent>
-              <h1>Put some content in here</h1>
-              <p>Put some text in here as well</p>
-              <button>Press the button</button>
-            </ModalContent>
-            <CloseModalButton
-              aria-label="Close modal"
-              onClick={() => setShowModal((prev) => !prev)}
-            />
-          </ModalWrapper>
+          <animated.div style={animation}>
+            <ModalWrapper showModal={showModal}>
+              <ModalImg
+                src={process.env.PUBLIC_URL + "./Assets/modal.jpg"}
+                alt="camera"
+              />
+              <ModalContent>
+                <h1>Put some content in here</h1>
+                <p>Put some text in here as well</p>
+                <button>Press the button</button>
+              </ModalContent>
+              <CloseModalButton
+                aria-label="Close modal"
+                onClick={() => setShowModal((prev) => !prev)}
+              />
+            </ModalWrapper>
+          </animated.div>
         </Background>
       ) : null}
     </>
