@@ -72,10 +72,33 @@ const Modal = ({ showModal, setShowModal }) => {
     opacity: showModal ? 1 : 0,
     transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
   });
+
+  const closeModal = (event) => {
+    if (modalRef.current === event.target) {
+      setShowModal(false);
+    }
+  };
+
+  const onEscapePress = useCallback(
+    (event) => {
+      if (event.key === "Escape" && showModal) {
+        setShowModal(false);
+      }
+    },
+    [setShowModal, showModal]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", onEscapePress);
+    return () => {
+      document.removeEventListener("keydown", onEscapePress);
+    };
+  }, [onEscapePress]);
+
   return (
     <>
       {showModal ? (
-        <Background>
+        <Background ref={modalRef} onClick={closeModal}>
           <animated.div style={animation}>
             <ModalWrapper showModal={showModal}>
               <ModalImg
