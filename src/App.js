@@ -15,7 +15,7 @@ min-width: 100px;
 padding: 16px 32px;
 border-radius: 4px;
 border: none;
-background: #141414;
+background: #5AFF;
 color: #fff;
 font-size: 24px;
 cursor: pointer;
@@ -31,7 +31,7 @@ const openModal = ()=>{
   return (
     <Container>
       <Button onClick={openModal}>I'm a modal</Button>
-      <Modal showModal={showModal} setShowModal={setShowModal}></Modal>
+      <Modal showModal={showModal} setShowModal={setShowModal} ID={0}></Modal>
       <GlobalStyle/>
     </Container>
   );

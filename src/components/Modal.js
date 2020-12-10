@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from "react";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
+import modals from "../Static/modals";
 
 const Background = styled.div`
   width: 100%;
@@ -45,10 +46,11 @@ const ModalContent = styled.div`
   }
 
   button {
-    padding: 10px 24px;
-    background: #141414;
-    color: #fff;
+    border-radius: 4px;
     border: none;
+    background: #5AFF;
+    padding: 10px 24px;
+    color: #fff;
   }
 `;
 
@@ -62,9 +64,8 @@ const CloseModalButton = styled(MdClose)`
   padding: 0;
   z-index: 10;
 `;
-const Modal = ({ showModal, setShowModal }) => {
+const Modal = ({ showModal, setShowModal, ID }) => {
   const modalRef = useRef();
-
   const animation = useSpring({
     config: {
       duration: 250,
@@ -102,12 +103,12 @@ const Modal = ({ showModal, setShowModal }) => {
           <animated.div style={animation}>
             <ModalWrapper showModal={showModal}>
               <ModalImg
-                src={process.env.PUBLIC_URL + "./Assets/modal.jpg"}
+                src={modals[ID].imageUrl}
                 alt="camera"
               />
               <ModalContent>
-                <h1>Put some content in here</h1>
-                <p>Put some text in here as well</p>
+                <h1>{modals[ID].title}</h1>
+                <p>{modals[ID].description}</p>
                 <button>Press the button</button>
               </ModalContent>
               <CloseModalButton
